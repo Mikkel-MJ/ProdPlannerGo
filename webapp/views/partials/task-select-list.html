@@ -1,0 +1,29 @@
+<div class="columns">
+  <div class="column box">
+    <label class="label">Tasks</label>
+    <ul class="" id="items" style="overflow-y: scroll; height: 600px">
+      <li class="box">item 1</li>
+      <li class="box">item 2</li>
+      <li class="box">item 3</li>
+      <li class="box">item 4</li>
+      <li class="box">item 5</li>
+    </ul>
+  </div>
+  <div class="column box">
+    <label class="label">Selected Tasks</label>
+    <ul class="" id="items2" style="overflow-y: scroll; height: 600px">
+      <li class="box">item 1</li>
+      <li class="box">item 2</li>
+      <li class="box">item 3</li>
+      <li class="box">item 4</li>
+      <li class="box">item 5</li>
+    </ul>
+  </div>
+</div>
+<script>
+  var el = document.getElementById("items");
+  var sortable = Sortable.create(el, { group: "tasks" });
+
+  var el = document.getElementById("items2");
+  var sortable = Sortable.create(el, { group: "tasks" });
+</script>

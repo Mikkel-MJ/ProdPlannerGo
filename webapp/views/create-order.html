@@ -1,0 +1,116 @@
+<h2 class="is-size-3">Create Order</h2>
+
+<div class="box">
+  <button class="button is-primary is-medium">
+    Create Order from template
+  </button>
+  <button class="button is-link is-medium">Create Order from scratch</button>
+</div>
+
+<form
+  hx-post="/order/create"
+  hx-confirm="are you Sure?"
+  hx-include="[name='selectedTasks']"
+>
+  <button class="button is-primary" id="submitOrder" type="submit">
+    Create Order
+  </button>
+
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            name="title"
+            value=""
+            placeholder="Order Title"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Order Number</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            name="order_nr"
+            value=""
+            placeholder="Order Number"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Deadline Date</label>
+    <div class="control">
+      <input id="my-element" type="date" name="deadline" value="" required />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Notes</label>
+    <div class="control">
+      <textarea class="textarea" name="note" placeholder="Textarea"></textarea>
+    </div>
+  </div>
+</form>
+
+{{block "taskSelectList" .}}
+<div class="columns">
+  <div class="column box m-2">
+    <label class="label">Tasks</label>
+    <ul class="" id="items" style="overflow-y: scroll; height: 600px">
+      {{range .Tasks}}
+      <li class="box has-background-grey-lighter">
+        <input type="hidden" name="titles" value="{{.Title}}" />
+        {{.Title}} - {{.ID}}
+      </li>
+      {{end}}
+    </ul>
+  </div>
+  <div class="column box m-2">
+    <div class="hero"></div>
+    <label class="label">Tasks</label>
+    <ul
+      class=""
+      name="selectedTasks"
+      id="selectedTasks"
+      style="overflow-y: scroll; height: 600px"
+    ></ul>
+  </div>
+</div>
+{{end}}
+<script>
+  var el = document.getElementById("items");
+  var sortable = Sortable.create(el, { group: "tasks" });
+
+  var el = document.getElementById("selectedTasks");
+  var sortable = Sortable.create(el, { group: "tasks" });
+  // Initialize all input of date type.
+  const calendars = bulmaCalendar.attach('[type="date"]', {
+    dateFormat: "dd-MM-yyyy", // 01.01.2021
+  });
+
+  // Loop on each calendar initialized
+  calendars.forEach((calendar) => {
+    // Add listener to select event
+    calendar.on("select", (date) => {
+      console.log(date);
+    });
+  });
+
+  // To access to bulmaCalendar instance of an element
+  const element = document.querySelector("#my-element");
+  if (element) {
+    // bulmaCalendar instance is available as element.bulmaCalendar
+    element.bulmaCalendar.on("select", (datepicker) => {
+      console.log(datepicker.data.value());
+    });
+  }
+</script>

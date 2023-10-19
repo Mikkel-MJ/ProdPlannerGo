@@ -1,0 +1,39 @@
+{{template "partials/header" .}}
+
+<h2 class="">Order Templates</h2>
+<div class="box">
+  <div>
+    <form hx-post="/templates/order">
+      <div class="field">
+        <label class="label" for="title">Title:</label>
+        <input
+          class="input input-bordered w-full"
+          type="text"
+          name="title"
+          placeholder="Enter template title"
+        />
+      </div>
+      <label class="label" for="tasks">Tasks:</label>
+      <div class="field" style="overflow-y: scroll; height: 300px">
+        <ul>
+          {{range .Tasks}}
+          <li>
+            <label class="is-size-5">
+              <input
+                class="checkbox"
+                type="checkbox"
+                name="ids"
+                value="{{.ID}}"
+              />
+              {{.Title}}
+            </label>
+          </li>
+          {{end}}
+        </ul>
+      </div>
+      <button class="button is-primary" type="submit">Submit Order</button>
+    </form>
+  </div>
+</div>
+
+{{template "partials/footer" .}}

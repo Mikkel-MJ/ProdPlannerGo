@@ -1,0 +1,48 @@
+{{template "partials/header" .}}
+
+<div class="section">
+  <table class="table is-fullwidth" id="task-table">
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Created At</th>
+    </tr>
+    {{range .Tasks}} {{block "taskRow" .}}
+    <tr>
+      <td>{{.ID}}</td>
+      <td>{{.Title}}</td>
+      <td>{{.CreatedAt}}</td>
+      <td>
+        <button
+          class="button is-danger is-small"
+          hx-delete="/tasks/{{.ID}}"
+          hx-confirm="Are you sure?"
+          hx-target="closest tr"
+          hx-swap="outerHTML"
+          type="button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    {{end}} {{end}}
+  </table>
+</div>
+<div class="section">
+  <form hx-post="/hi" hx-target="#task-table" hx-swap="beforeend">
+    <div class="box">
+      <label class="label" for="title">Create new Task Template</label>
+      <input
+        class="input input-bordered w-full"
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Enter title"
+      />
+    </div>
+    <button class="button is-primary" type="submit">Submit</button>
+  </form>
+
+  {{template "partials/footer" .}}
+</div>

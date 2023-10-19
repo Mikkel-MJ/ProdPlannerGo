@@ -1,0 +1,66 @@
+<h2 class="is-size-1">Orders</h2>
+<div x-data="{ open: false }">
+  {{range .Orders}}
+  <div class="box">
+    <div class="columns">
+      <div class="colomn">
+        <h2 class="is-size-3">{{.Title}}</h2>
+        <h2 class="is-size-3">{{.Order_number}}</h2>
+      </div>
+      {{range .Tasks}} {{if eq .Status 0}}
+      <div
+        hx-get="/task/edit/{{.ID}}"
+        hx-target="#modalPlace"
+        ht-swap="innerHTML"
+        x-on:click="open = ! open"
+        class="column card has-background-link-dark has-text-white"
+      >
+        <p>{{.ID}} {{.Title}} {{.Status | getStatusString}}</p>
+      </div>
+      {{end}} {{if eq .Status 1}}
+      <div
+        hx-get="/task/edit/{{.ID}}"
+        hx-target="#modalPlace"
+        ht-swap="innerHTML"
+        x-on:click="open = ! open"
+        class="column card has-background-info has-text-white"
+      >
+        <p>{{.ID}} {{.Title}} {{.Status | getStatusString}}</p>
+      </div>
+      {{end}} {{if eq .Status 2}}
+      <div
+        hx-get="/task/edit/{{.ID}}"
+        hx-target="#modalPlace"
+        ht-swap="innerHTML"
+        x-on:click="open = ! open"
+        class="column card has-background-success has-text-white"
+      >
+        <p>{{.ID}} {{.Title}} {{.Status | getStatusString}}</p>
+      </div>
+      {{end}} {{if eq .Status 3}}
+      <div
+        hx-get="/task/edit/{{.ID}}"
+        hx-target="#modalPlace"
+        ht-swap="innerHTML"
+        x-on:click="open = ! open"
+        class="column card has-background-warning has-text-white"
+      >
+        <p>{{.ID}} {{.Title}} {{.Status | getStatusString}}</p>
+      </div>
+      {{end}} {{if eq .Status 4}}
+      <div
+        hx-get="/task/edit/{{.ID}}"
+        hx-target="#modalPlace"
+        ht-swap="innerHTML"
+        x-on:click="open = ! open"
+        class="column card has-background-danger has-text-white"
+      >
+        <p>{{.ID}} {{.Title}} {{.Status | getStatusString}}</p>
+      </div>
+      {{end}} {{end}}
+    </div>
+  </div>
+  {{end}}
+
+  <div x-show="open" id="modalPlace"></div>
+</div>

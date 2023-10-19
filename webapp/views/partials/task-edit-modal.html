@@ -1,0 +1,48 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit {{.Task.Title}}</p>
+      <button
+        x-on:click="open = ! open"
+        class="delete"
+        aria-label="close"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <form id="task-form" hx-post="/task/edit/{{.Task.ID}}">
+        <div class="select is-large is-fullwidth mb-5">
+          <select name="status" value="{{.Task.Status}}">
+            <option value="0" {{if eq 0 .Task.Status}}selected{{end}}>
+              NotStarted
+            </option>
+            <option value="1" {{if eq 1 .Task.Status}}selected{{end}}>
+              InProgress
+            </option>
+            <option value="2" {{if eq 2 .Task.Status}}selected{{end}}>
+              Completed
+            </option>
+            <option value="3" {{if eq 3 .Task.Status}}selected{{end}}>
+              HasIssues
+            </option>
+            <option value="4" {{if eq 4 .Task.Status}}selected{{end}}>
+              Blocked
+            </option>
+          </select>
+        </div>
+        <textarea name="note" class="textarea">{{.Task.Note}}</textarea>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button
+        x-on:click="open = ! open"
+        class="button is-success"
+        form="task-form"
+      >
+        Save changes
+      </button>
+      <button x-on:click="open = ! open" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
